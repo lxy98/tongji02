@@ -1,0 +1,11 @@
+mysql> create database lx charset=utf8;
+mysql> show databases;
+mysql> use hello;
+mysql> source /home/lxy98/Desktop/hr.sql;
+mysql> show tables;
+mysql> select * from emp;
+mysql> select sum(empno) from emp;
+mysql> select * from emp order by empno desc;
+mysql> select * from emp where emp.empno not in (select min(empno) from emp group by sal having count(sal)>1);
+
+

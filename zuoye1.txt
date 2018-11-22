@@ -1,0 +1,100 @@
+mysql> create database taobao charset=utf8;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use taobao;
+Database changed
+mysql> select database();
++------------+
+| database() |
++------------+
+| taobao     |
++------------+
+1 row in set (0.01 sec)
+mysql> show create database taobao;
++----------+-----------------------------------------------------------------+
+| Database | Create Database                                                 |
++----------+-----------------------------------------------------------------+
+| taobao   | CREATE DATABASE `taobao` /*!40100 DEFAULT CHARACTER SET utf8 */ |
++----------+-----------------------------------------------------------------+
+1 row in set (0.00 sec)
+mysql> create table tb( id int primary key not null auto_increment, perform varchar(45), discount varchar(45), want varchar(45));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc tb;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| perform  | varchar(45) | YES  |     | NULL    |                |
+| discount | varchar(45) | YES  |     | NULL    |                |
+| want     | varchar(45) | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+mysql> insert into tb(id,perform,discount,want) values (1,"shoes","yes","none"); 
+Query OK, 1 row affected (0.01 sec)
+select * from tb;
++----+---------+----------+------+
+| id | perform | discount | want |
++----+---------+----------+------+
+|  1 | shoes   | yes      | none |
++----+---------+----------+------+
+1 row in set (0.00 sec)
+mysql> insert into tb(perform,discount,want) values ("shoes"," "," "), ("trousers","no","www"), ("shoes","yes"," "), ("trousers","no","uuujhu");
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+ select * from tb;
++----+----------+----------+--------+
+| id | perform  | discount | want   |
++----+----------+----------+--------+
+|  1 | shoes    | yes      | none   |
+|  2 | shoes    |          |        |
+|  3 | trousers | no       | www    |
+|  4 | shoes    | yes      |        |
+|  5 | trousers | no       | uuujhu |
++----+----------+----------+--------+
+5 rows in set (0.00 sec)
+mysql> update tb set want="none" where id=4;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from tb;
++----+----------+----------+--------+
+| id | perform  | discount | want   |
++----+----------+----------+--------+
+|  1 | shoes    | yes      | none   |
+|  2 | shoes    |          |        |
+|  3 | trousers | no       | www    |
+|  4 | shoes    | yes      | none   |
+|  5 | trousers | no       | uuujhu |
++----+----------+----------+--------+
+5 rows in set (0.00 sec)
+mysql> alter table tb add isdelete int default 0;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from tb;
++----+----------+----------+--------+----------+
+| id | perform  | discount | want   | isdelete |
++----+----------+----------+--------+----------+
+|  1 | shoes    | yes      | none   |        0 |
+|  2 | shoes    |          |        |        0 |
+|  3 | trousers | no       | www    |        0 |
+|  4 | shoes    | yes      | none   |        0 |
+|  5 | trousers | no       | uuujhu |        0 |
++----+----------+----------+--------+----------+
+5 rows in set (0.00 sec)
+mysql> update tb set isdelete=1 where id=3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from tb;
++----+----------+----------+--------+----------+
+| id | perform  | discount | want   | isdelete |
++----+----------+----------+--------+----------+
+|  1 | shoes    | yes      | none   |        0 |
+|  2 | shoes    |          |        |        0 |
+|  3 | trousers | no       | www    |        1 |
+|  4 | shoes    | yes      | none   |        0 |
+|  5 | trousers | no       | uuujhu |        0 |
++----+----------+----------+--------+----------+
+5 rows in set (0.00 sec)
