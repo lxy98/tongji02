@@ -1,0 +1,77 @@
+use aa;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> create table user(
+    -> id int primary key auto_increment,
+    -> name varchar(30),
+    -> time int,
+    -> way varchar(20));
+Query OK, 0 rows affected (0.11 sec)
+
+mysql>  insert into user(id,name,time,way) values(1,"aaa","2","app");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into user(name,time,way) values
+    -> ("sss",8,"app"),
+    -> ("ffd",15,"app"),
+    -> ("ssd",45,"pc"),
+    -> ("jhb",25,"pc"),
+    -> ("kkk",45,"ipad"),
+    -> ("ksd",5,"ipad"),
+    -> ("hgu",10,"pc"),
+    -> ("zyx",8,"pc"),
+    -> ("zsxd",10,"app");     Query OK, 9 rows affected (0.00 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> select * from user;
++----+------+------+------+
+| id | name | time | way  |
++----+------+------+------+
+|  1 | aaa  |    2 | app  |
+|  2 | sss  |    8 | app  |
+|  3 | ffd  |   15 | app  |
+|  4 | ssd  |   45 | pc   |
+|  5 | jhb  |   25 | pc   |
+|  6 | kkk  |   45 | ipad |
+|  7 | ksd  |    5 | ipad |
+|  8 | hgu  |   10 | pc   |
+|  9 | zyx  |    8 | pc   |
+| 10 | zsxd |   10 | app  |
++----+------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> alter table user add fs varchar(32) default "empty";
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update user set fs="快回来小天才" where time>7 and time<9;
+Query OK, 2 rows affected (0.08 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> update user set fs="你特么的回不回来" where time>9 and time<30;
+Query OK, 4 rows affected (0.00 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> update user set fs="你去死吧" where time>30;
+Query OK, 2 rows affected (0.03 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from user;
++----+------+------+------+--------------------------+
+| id | name | time | way  | fs                       |
++----+------+------+------+--------------------------+
+|  1 | aaa  |    2 | app  | empty                      |
+|  2 | sss  |    8 | app  | 快回来小天才             |
+|  3 | ffd  |   15 | app  | 你特么的回不回来         |
+|  4 | ssd  |   45 | pc   | 你去死吧                 |
+|  5 | jhb  |   25 | pc   | 你特么的回不回来         |
+|  6 | kkk  |   45 | ipad | 你去死吧                 |
+|  7 | ksd  |    5 | ipad | empty                      |
+|  8 | hgu  |   10 | pc   | 你特么的回不回来         |
+|  9 | zyx  |    8 | pc   | 快回来小天才             |
+| 10 | zsxd |   10 | app  | 你特么的回不回来         |
++----+------+------+------+--------------------------+
+10 rows in set (0.00 sec)
+
